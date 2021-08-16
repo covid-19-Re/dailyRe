@@ -1,0 +1,401 @@
+{
+  "languages": [
+    "en-gb",
+    "it-ch",
+    "fr-ch",
+    "de-ch"
+  ],
+  "translation": [
+    {
+      "en-gb": "R<sub>e</sub> by canton",
+      "it-ch": "R<sub>e</sub> nei cantoni",
+      "fr-ch": "R<sub>e</sub> dans les cantons",
+      "de-ch": "R<sub>e</sub> in den Kantonen"
+    },
+    {
+      "en-gb": "Last Data Updates",
+      "it-ch": "Ultimo aggiornamento",
+      "fr-ch": "Dernières mises à jour",
+      "de-ch": "Letztes Update"
+    },
+    {
+      "en-gb": "R<sub>e</sub> in Switzerland",
+      "it-ch": "R<sub>e</sub> in Svizzera",
+      "fr-ch": "R<sub>e</sub> en Suisse",
+      "de-ch": "R<sub>e</sub> in der Schweiz"
+    },
+    {
+      "en-gb": "R<sub>e</sub> for greater Regions",
+      "it-ch": "R<sub>e</sub> nei grandi regioni",
+      "fr-ch": "R<sub>e</sub> dans les grandes régions",
+      "de-ch": "R<sub>e</sub> in den Grossregionen"
+    },
+    {
+      "en-gb": "Greater regions",
+      "it-ch": "Grandi regioni",
+      "fr-ch": "Grandes régions",
+      "de-ch": "Grossregionen"
+    },
+    {
+      "en-gb": "R<sub>e</sub> in Europe",
+      "it-ch": "R<sub>e</sub> nei Europa",
+      "fr-ch": "R<sub>e</sub> en Europe",
+      "de-ch": "R<sub>e</sub> in Europa"
+    },
+    {
+      "en-gb": "About",
+      "it-ch": "Informazioni su questo sito",
+      "fr-ch": "À propos de ce site",
+      "de-ch": "Über diese Seite"
+    },
+    {
+      "en-gb": "Download R<sub>e</sub> estimates",
+      "it-ch": "Scarica stime R<sub>e</sub>",
+      "fr-ch": "Télécharger R<sub>e</sub> estimations",
+      "de-ch": "R<sub>e</sub> Schätzungen herunterladen"
+    },
+    {
+      "en-gb": "Download estimates for Europe",
+      "it-ch": "Scarica stime Europa",
+      "fr-ch": "Télécharger estimations Europe",
+      "de-ch": "Schätzungen für Europa herunterladen"
+    },
+    {
+      "en-gb": "Download estimates for Switzerland",
+      "it-ch": "Scarica stime Svizzera",
+      "fr-ch": "Télécharger estimations Suisse",
+      "de-ch": "Schätzungen für die Schweiz herunterladen"
+    },
+    {
+      "en-gb": "Language",
+      "it-ch": "Lingua",
+      "fr-ch": "Langue",
+      "de-ch": "Sprache"
+    },
+    {
+      "en-gb": "%Y-%m-%d",
+      "it-ch": "%d.%m.%Y",
+      "fr-ch": "%d.%m.%Y",
+      "de-ch": "%d.%m.%Y"
+    },
+    {
+      "en-gb": "%b-%d",
+      "it-ch": "%d. %b",
+      "fr-ch": "%d. %b",
+      "de-ch": "%d. %b"
+    },
+    {
+      "en-gb": "Estimation of the effective reproductive number (R<sub>e</sub>)",
+      "it-ch": "Stima del numero di riproduzione effettivo (R <sub> e </sub>)",
+      "fr-ch": "Estimation du nombre de reproduction effectif (R<sub>e</sub>)",
+      "de-ch": "Schätzung der effektiven Reproduktionszahl (R<sub>e</sub>) in der Schweiz"
+    },
+    {
+      "en-gb": "Estimating the effective reproductive number (R<sub>e</sub>) in Switzerland",
+      "it-ch": "Stima del numero di riproduzione effettivo (R <sub> e </sub>) in Svizzera",
+      "fr-ch": "Estimation du nombre de reproduction effectif (R<sub>e</sub>) en Suisse",
+      "de-ch": "Schätzung der effektiven Reproduktionszahl (R<sub>e</sub>) in der Schweiz"
+    },
+    {
+      "en-gb": "Estimating the effective reproductive number (R<sub>e</sub>) for cantons",
+      "it-ch": "Stima del numero di riproduzione effettivo (R <sub> e </sub>) per i cantoni",
+      "fr-ch": "Estimation du nombre de reproduction effectif (R<sub>e</sub>) pour les cantons",
+      "de-ch": "Schätzung der effektiven Reproduktionszahl (R<sub>e</sub>) für Kantone"
+    },
+    {
+      "en-gb": "New observations",
+      "de-ch": "Neue Beobachtungen",
+      "fr-ch": "Nombre d’observations",
+      "it-ch": "Nuove osservazioni"
+    },
+    {
+      "en-gb": "Reproductive number Re (95% CI)",
+      "de-ch": "Reproduktionszahl Re (95% KI)",
+      "fr-ch": "Nombre de reproduction Re (95% CI)",
+      "it-ch": "Numero di riproduzione Re (95% CI)"
+    },
+    {
+      "en-gb": "Data types",
+      "de-ch": "Datentypen",
+      "fr-ch": "Type de données",
+      "it-ch": "Tipo di dati"
+    },
+    {
+      "en-gb": "Select data type for comparison",
+      "de-ch": "Datentyp zum Vergleich auswählen",
+      "fr-ch": "Choisir le type de donné",
+      "it-ch": "Tipo di dati"
+    },
+    {
+      "en-gb": "Canton",
+      "de-ch": "Kanton",
+      "fr-ch": "Canton",
+      "it-ch": "Canton"
+    },
+    {
+      "en-gb": "Country",
+      "de-ch": "Land",
+      "fr-ch": "Pays",
+      "it-ch": "Paese"
+    },
+    {
+      "en-gb": "Countries",
+      "de-ch": "Länder",
+      "fr-ch": "Pays",
+      "it-ch": "Paesi"
+    },
+    {
+      "en-gb": "Confirmed cases",
+      "de-ch": "Bestätigte Fälle",
+      "fr-ch": "Cas confirmés",
+      "it-ch": "Casi confermati"
+    },
+    {
+      "en-gb": "Confirmed cases / tests",
+      "de-ch": "Bestätigte Fälle / Tests",
+      "fr-ch": "Cas confirmés / test",
+      "it-ch": "Casi confermati / test"
+    },
+    {
+      "en-gb": "Hospitalized patients",
+      "de-ch": "Hospitalisierte Patienten",
+      "fr-ch": "Patients hospitalisés",
+      "it-ch": "Pazienti ospedalizzati"
+    },
+    {
+      "en-gb": "Deaths",
+      "de-ch": "Todesfälle",
+      "fr-ch": "Décès",
+      "it-ch": "Decessi"
+    },
+    {
+      "en-gb": "Excess deaths",
+      "de-ch": "Übersterblichkeit",
+      "fr-ch": "Surmortalité",
+      "it-ch": "Eccesso di mortalità"
+    },
+    {
+      "en-gb": "Exponential increase<br>in number of new cases",
+      "de-ch": "Exponentieller Anstieg<br>neuer Fälle",
+      "fr-ch": "Augmentation exponentielle<br>du nombre de nouveaux cas",
+      "it-ch": "Aumento esponenziale<br>di nuovi casi"
+    },
+    {
+      "en-gb": "Decrease in number of new cases",
+      "de-ch": "Abnahme neuer Fälle",
+      "fr-ch": "Diminution du nombre de nouveaux cas",
+      "it-ch": "Decremento del numero di nuovi casi"
+    },
+    {
+      "en-gb": "This is the most recent possible R<sub>e</sub> estimate due to delays between infection and the last data observation.",
+      "de-ch": "Letzte mögliche Schätzung von R<sub>e</sub> aufgrund von Verzögerungen zwischen Infektion und Beobachtung.",
+      "fr-ch": "Ceci est la dernière estimation disponible de R<sub>e</sub> en raison du délai entre l'infection et le moment de sa détection.",
+      "it-ch": "Questo e' la piu' recente possibile stima di R<sub>e</sub> dovuta al ritardo tra l'infezione e l'ultima osservazione dei dati."
+    },
+    {
+      "en-gb": "Data Source",
+      "de-ch": "Datenquelle",
+      "fr-ch": "Source",
+      "it-ch": "Fonte dei dati"
+    },
+    {
+      "en-gb": "Switzerland",
+      "de-ch": "Schweiz",
+      "fr-ch": "Suisse",
+      "it-ch": "Svizzera"
+    },
+    {
+      "en-gb": "Switzerland (Total)",
+      "de-ch": "Schweiz (Total)",
+      "fr-ch": "Suisse (Total)",
+      "it-ch": "Svizzera (Totalmente)"
+    },
+    {
+      "en-gb": "FOPH",
+      "de-ch": "BAG",
+      "fr-ch": "OFSP",
+      "it-ch": "UFSP"
+    },
+    {
+      "en-gb": "NA",
+      "de-ch": "",
+      "fr-ch": "",
+      "it-ch": ""
+    },
+    {
+      "en-gb": "Maps",
+      "de-ch": "Karten",
+      "fr-ch": "Plans",
+      "it-ch": "Mappe"
+    },
+    {
+      "en-gb": "Options",
+      "de-ch": "Optionen",
+      "fr-ch": "Options",
+      "it-ch": "Opzioni"
+    },
+    {
+      "en-gb": "More Options",
+      "de-ch": "Mehr Optionen",
+      "fr-ch": "Plus d'options",
+      "it-ch": "Più opzioni"
+    },
+    {
+      "en-gb": "Select estimation type to show",
+      "de-ch": "Schätzungsmethode wählen",
+      "fr-ch": "Sélectionnez le type d'estimation",
+      "it-ch": "Seleziona il tipo di stima"
+    },
+    {
+      "en-gb": "daily incidence",
+      "de-ch": "Tägliche Fälle",
+      "fr-ch": "Numéros de cas quotidiens",
+      "it-ch": "Numeri di casi giornalieri"
+    },
+    {
+      "en-gb": "7 day average",
+      "de-ch": "7 Tage Mittel",
+      "fr-ch": "Moyenne sur 7 jours",
+      "it-ch": "Media di 7 giorni"
+    },
+    {
+      "en-gb": "Display incidence data as",
+      "de-ch": "Anzeige der Falldaten als",
+      "fr-ch": "Afficher les données de cas comme ...",
+      "it-ch": "Visualizza i dati del caso come ..."
+    },
+    {
+      "en-gb": "Africa",
+      "de-ch": "Afrika",
+      "fr-ch": "Afrique",
+      "it-ch": "Africa"
+    },
+    {
+      "en-gb": "Asia",
+      "de-ch": "Asien",
+      "fr-ch": "Asie",
+      "it-ch": "Asia"
+    },
+    {
+      "en-gb": "Europe",
+      "de-ch": "Europa",
+      "fr-ch": "Europe",
+      "it-ch": "Europa"
+    },
+    {
+      "en-gb": "North America",
+      "de-ch": "Nordamerika",
+      "fr-ch": "Amérique du Nord",
+      "it-ch": "Nord America"
+    },
+    {
+      "en-gb": "South America",
+      "de-ch": "Südamerika",
+      "fr-ch": "Amérique du Sud",
+      "it-ch": "Sud America"
+    },
+    {
+      "en-gb": "Oceania",
+      "de-ch": "Ozeanien"
+    },
+    {
+      "en-gb": "Timeseries",
+      "de-ch": "Zeitreihen",
+      "fr-ch": "Séries chronologiques",
+      "it-ch": "Serie storica"
+    },
+    {
+      "en-gb": "Why is the most recent R<sub>e</sub> estimate delayed by ~10 days?",
+      "de-ch": "Warum ist die jüngste Schatzung von R<sub>e</sub> von vor ca. 10 Tagen?"
+    },
+    {
+      "en-gb": "Sliding window",
+      "de-ch": "Gleitendes Fenster"
+    },
+    {
+      "en-gb": "Step-wise constant",
+      "de-ch": "Stufenweise Konstant"
+    },
+    {
+      "en-gb": "Most recent effective reproductive number estimate",
+      "de-ch": "Aktuellste Schätzung der effektiven Reproduktionszahl"
+    },
+    {
+      "en-gb": "Average effective reproductive number over the last 7 days",
+      "de-ch": "Durchschnittliche effektive Reproduktionszahl in den letzten 7 Tagen"
+    },
+    {
+      "en-gb": "FAQ",
+      "de-ch": "FAQ"
+    },
+    {
+      "en-gb": "Oxford Stringency Index",
+      "de-ch": "Oxford Stringency Index",
+      "fr-ch": "Oxford Stringency Index",
+      "it-ch": "Oxford Stringency Index"
+    },
+    {
+      "en-gb": "Show / Hide Index",
+      "de-ch": "Index anzeigen / verstecken"
+    },
+    {
+      "en-gb": "Select vaccination data",
+      "de-ch": "Impfdaten auswählen"
+    },
+    {
+      "en-gb": "Show vaccination data (per 100 people)",
+      "de-ch": "Impfdaten (pro 100 Personen) anzeigen"
+    },
+    {
+      "en-gb": "Select mobility category",
+      "de-ch": "Mobilitätskategorie auswählen"
+    },
+    {
+      "en-gb": "Show Google mobility data (Country only)",
+      "de-ch": "Google Mobilitätsdaten anzeigen (nur Länderebene)"
+    },
+    {
+      "en-gb": "Select Country",
+      "de-ch": "Land auswählen"
+    },
+    {
+      "en-gb": "Normalize incidence to per 100'000 inhabitants",
+      "de-ch": "Falldaten pro 100'000 Einwohner normalisieren"
+    },
+    {
+      "en-gb": "Show smoothed data (Loess Fit)",
+      "de-ch": "Geglättete Daten anzeigen (Loess Fit)"
+    },
+    {
+      "en-gb": "Show estimated infection times (deconvolution)",
+      "de-ch": "Geschätzte Infektionszeiten anzeigen (Dekonvolution)"
+    },
+    {
+      "en-gb": "Logarithmic axis for Incidence",
+      "de-ch": "Logarithmische Achse für Falldaten"
+    },
+    {
+      "en-gb": "'Sliding Window' estimates R<sub>e</sub> using a 3 day sliding window.",
+      "de-ch": "'Gleitendes Fenster' schätzt R<sub>e</sub> mit einem 3 Tage gleitenden Fenster."
+    },
+    {
+      "en-gb": "'Step-wise constant' estimates R<sub>e</sub> assumes constant R<sub>e</sub> when Oxford Stringency Index is constant.",
+      "de-ch": "'Stufenweise Konstant' nimmt an, dass R<sub>e</sub> konstant ist, solange der Oxford Stringency Index konstant bleibt."
+    },
+    {
+      "en-gb": "Select subdivisions",
+      "de-ch": "Regionen auswählen"
+    },
+    {
+      "en-gb": "Subdivisions",
+      "de-ch": "Regionen"
+    },
+    {
+      "en-gb": "Vaccinations",
+      "de-ch": "Impfungen"
+    }
+
+
+  ]
+}
+

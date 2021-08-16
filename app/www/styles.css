@@ -1,0 +1,50 @@
+
+.titleCol {
+  font-size: 15pt;
+  font-weight: 700;
+  vertical-align: middle;
+  min-height: 50px;
+  padding-top: 10px;
+  padding-bottom: 10px;
+  background-color: #00c3ff79
+}
+
+.control-label {
+  font-weight: 300 !important;
+}
+
+.checkbox {
+  padding-left: 10px !important;
+}
+
+/* .checkbox label {
+  font-weight: 300 !important;
+} */
+
+
+.navbar-default {
+  background: none !important;
+}
+
+.navbar-brand {
+  height: 60px !important;
+  line-height: 30px;
+  font-size: 40px;
+  font-weight: 200;
+}
+
+.navbar-nav {
+  height: 60px !important;
+  font-size: 20px;
+}
+
+.navbar-nav > li > a {
+  height: 60px !important;
+  line-height: 40px;
+  font-size: 20px;
+  /* background: none !important; */
+}
+
+::-webkit-contacts-auto-fill-button {
+  visibility: hidden;
+}

@@ -1,0 +1,9 @@
+# dev
+dev-*
+app/data/serialized/*
+app/data/temp/*
+.vscode/
+*.code-workspace
+
+# config
+app/config.yml

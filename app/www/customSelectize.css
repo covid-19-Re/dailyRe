@@ -1,0 +1,62 @@
+/* custom selectize */
+
+.selectize-input {
+  border-top: none !important;
+  border-left: none !important;
+  border-right: none !important;
+  border-bottom: 1pt solid !important;
+  border-bottom-left-radius: 0 !important;
+  border-bottom-right-radius: 0 !important;
+  border-color:  rgb(238, 238, 238) !important;
+}
+
+.selectize-input > .item {
+  background: none !important;
+} 
+
+.selectize-dropdown,
+.selectize-input,
+.selectize-input input {
+  line-height: 20px !important;
+}
+
+.selectize-dropdown .optgroup-header {
+  font-size: 14px !important;
+}
+
+.selectCol .selectize-control {
+  font-size: 20pt !important;
+  background: none !important;
+}
+
+
+.navbar-form {
+  height: 55px !important;
+  margin-bottom: 0 !important;
+  margin-top: 5px !important;
+}
+
+#lang .selectize-control {
+  margin-bottom: 0 !important;
+}
+
+.selectCol .selectize-dropdown,
+.selectize-input,
+.selectize-input input {
+  line-height: 35px !important;
+}
+
+.selectCol .selectize-dropdown .optgroup-header {
+  font-size: 16px !important;
+}
+
+
+
+.selectize-control.multi .selectize-input > div.active {
+  background: none !important;
+  color: inherit !important;
+  border-top: none !important;
+  border-left: none !important;
+  border-right: none !important;
+  border-bottom: 1pt !important;
+}
