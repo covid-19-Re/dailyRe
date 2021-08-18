@@ -13,7 +13,7 @@ e_tooltip_incidence_formatter <- function(
   )
 
   tip <- htmlwidgets::JS(sprintf("function(params, ticket, callback) {
-        var fmt = new Intl.NumberFormat('en-GB', %s);
+        var fmt = new Intl.NumberFormat('de-CH', %s);
         var fmtDate = new Intl.DateTimeFormat('%s');
         var fmtDay = new Intl.DateTimeFormat('%s', {weekday: 'short'})
         var res = fmtDate.format(Date.parse(params[0].value[0])) + ' (' +
@@ -23,7 +23,7 @@ e_tooltip_incidence_formatter <- function(
                   params[i].marker + ' ' +
                   params[i].seriesName +
                   '<span style=\"float:right;margin-left:20px;font-size:14px;color:#666;font-weight:900\">' +
-                  fmt.format(parseFloat(params[i].value[1])) +
+                  fmt.format(params[i].value[1]) +
                   '</span>';
         }
         return res;
@@ -50,7 +50,7 @@ e_tooltip_estimate_formatter <- function(
   )
 
   tip <- htmlwidgets::JS(sprintf("function(params, ticket, callback) {
-        var fmt = new Intl.NumberFormat('en-GB', %s);
+        var fmt = new Intl.NumberFormat('de-CH', %s);
         var fmtDate = new Intl.DateTimeFormat('%s');
         var fmtDay = new Intl.DateTimeFormat('%s', {weekday: 'short'})
         var res = fmtDate.format(Date.parse(params[0].value[0])) + ' (' +
@@ -61,9 +61,9 @@ e_tooltip_estimate_formatter <- function(
                   params[i].marker + ' ' +
                   params[i].seriesName +
                   '<span style=\"float:right;margin-left:20px;font-size:14px;color:#666;font-weight:900\">' +
-                  fmt.format(parseFloat(params[i].value[1])) + ' (' +
-                  fmt.format(parseFloat(params[i + params.length/2].value[1])) + ' - ' +
-                  fmt.format(parseFloat(params[i + params.length/2].value[2])) + ')' +
+                  fmt.format(params[i].value[1]) + ' (' +
+                  fmt.format(params[i + params.length/2].value[1]) + ' - ' +
+                  fmt.format(params[i + params.length/2].value[2]) + ')' +
                   '</span>';
         }
         return res;
@@ -103,12 +103,18 @@ e_tooltip_independentvar_formatter <- function(
               header = params[i].name;
               res += header
             }
+            if (params[i].value[1] === null) {
+              var valueStr = '<span style=\"float:right;margin-left:20px;font-size:14px;color:#999;font-weight:900\">' +
+                'NA' + '</span>'
+            } else {
+              var valueStr = '<span style=\"float:right;margin-left:20px;font-size:14px;color:#666;font-weight:900\">' +
+                fmt.format(params[i].value[1]) +
+                '</span>'
+            }
             res += '<br />' +
                   params[i].marker + ' ' +
                   params[i].seriesName +
-                  '<span style=\"float:right;margin-left:20px;font-size:14px;color:#666;font-weight:900\">' +
-                  fmt.format(parseFloat(params[i].value[1])) +
-                  '</span>';
+                  valueStr;
         }
         return res;
     }", locale, jsonlite::toJSON(opts, auto_unbox = TRUE), locale, locale))
