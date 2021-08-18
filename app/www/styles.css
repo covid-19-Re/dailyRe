@@ -27,22 +27,23 @@
 }
 
 .navbar-brand {
-  height: 60px !important;
-  line-height: 30px;
+  height: 80px !important;
+  line-height: 50px;
   font-size: 40px;
   font-weight: 200;
 }
 
 .navbar-nav {
-  height: 60px !important;
+  height: 80px !important;
   font-size: 20px;
 }
 
 .navbar-nav > li > a {
-  height: 60px !important;
-  line-height: 40px;
-  font-size: 20px;
-  /* background: none !important; */
+  height: 80px !important;
+  line-height: 50px;
+  font-weight: 300;
+  padding-left: 30px;
+  padding-right: 30px;
 }
 
 ::-webkit-contacts-auto-fill-button {
