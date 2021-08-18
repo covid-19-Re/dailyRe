@@ -902,7 +902,7 @@ server <- function(input, output, session) {
 
     ui <- tagList(
       selectizeInput(
-        inputId = "appleMobilityType", label = i18n()$t("Show Apple mobility data (Country only)"),
+        inputId = "appleMobilityType", label = i18n()$t("Show Apple mobility data"),
         choices = availableMobilityDataApple,
         selected = "",
         options = list(

@@ -259,6 +259,12 @@
       "it-ch": "Media di 7 giorni"
     },
     {
+      "en-gb": "14 day average",
+      "de-ch": "14 Tage Mittel",
+      "fr-ch": "Moyenne sur 14 jours",
+      "it-ch": "Media di 14 giorni"
+    },
+    {
       "en-gb": "Display incidence data as",
       "de-ch": "Anzeige der Falldaten als",
       "fr-ch": "Afficher les données de cas comme ...",
@@ -351,8 +357,20 @@
       "de-ch": "Mobilitätskategorie auswählen"
     },
     {
-      "en-gb": "Show Google mobility data (Country only)",
-      "de-ch": "Google Mobilitätsdaten anzeigen (nur Länderebene)"
+      "en-gb": "Show Google mobility data",
+      "de-ch": "Google Mobilitätsdaten anzeigen"
+    },
+    {
+      "en-gb": "Show Apple mobility data",
+      "de-ch": "Apple Mobilitätsdaten anzeigen"
+    },
+    {
+      "en-gb": "Smooth Google mobility data",
+      "de-ch": "Glättung der Google Mobility Daten"
+    },
+    {
+      "en-gb": "Smooth Apple mobility data",
+      "de-ch": "Glättung der Apple Mobility Daten"
     },
     {
       "en-gb": "Select Country",
@@ -393,6 +411,10 @@
     {
       "en-gb": "Vaccinations",
       "de-ch": "Impfungen"
+    },
+    {
+      "en-gb": "no smoothing",
+      "de-ch": "keine Glättung"
     }
 
 
