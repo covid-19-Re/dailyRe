@@ -666,6 +666,7 @@ server <- function(input, output, session) {
 
       yAxisLabel <- str_c(yAxisLabel, i18n()$t("% mobility change"), sep = " /\n")
     }
+
     if (length(input$appleMobilityType) > 0) {
       plot <- plot %>%
         e_data(
@@ -953,9 +954,21 @@ server <- function(input, output, session) {
       dataTypeSelect <- unique(incidenceDataPlot()$data_type)
     }
 
+    if (input$showStringency) {
+      dataTypeSelect <- c(dataTypeSelect, "Stringency Index")
+    }
+
+    if (length(input$appleMobilityType) > 0 && input$appleMobilityType[1] != "") {
+      dataTypeSelect <- c(dataTypeSelect, "Apple Mobility Data")
+    }
+
+    if (length(input$googleMobilityType) > 0 && input$googleMobilityType[1] != "") {
+      dataTypeSelect <- c(dataTypeSelect, "Google Mobility Data")
+    }
+    print(dataTypeSelect)
     updateDataPlot <- updateData() %>%
       filter(
-        data_type %in% c(dataTypeSelect, "Stringency Index"),
+        data_type %in% dataTypeSelect,
         region %in% selectedRegion()) %>%
       ungroup() %>%
       dplyr::select(-region) %>%
@@ -964,7 +977,7 @@ server <- function(input, output, session) {
         lastChanged = max(lastChanged),
         .groups = "keep") %>%
       ungroup()
-
+    print(updateDataPlot)
     updateDataString <- dataUpdatesString(updateDataPlot,
       name = i18n()$t("Data Source"), dateFormat = i18n()$t("%Y-%m-%d"))
 
