@@ -57,7 +57,8 @@ ui <- function(request) {
           column(2,
             uiOutput("showStringencyUI"),
             uiOutput("vaccinationDataTypeChoiceUI"),
-            uiOutput("mobilityPlaceCategoryChoiceUI")
+            uiOutput("googleMobilityTypeChoiceUI"),
+            uiOutput("appleMobilityTypeChoiceUI")
           )
         ),
         uiOutput("methodsUI")
