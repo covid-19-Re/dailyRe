@@ -13,9 +13,11 @@ e_tooltip_incidence_formatter <- function(
   )
 
   tip <- htmlwidgets::JS(sprintf("function(params, ticket, callback) {
-        var fmt = new Intl.NumberFormat('%s', %s);
+        var fmt = new Intl.NumberFormat('en-GB', %s);
         var fmtDate = new Intl.DateTimeFormat('%s');
-        var res = fmtDate.format(Date.parse(params[0].value[0]));
+        var fmtDay = new Intl.DateTimeFormat('%s', {weekday: 'short'})
+        var res = fmtDate.format(Date.parse(params[0].value[0])) + ' (' +
+          fmtDay.formatToParts(Date.parse(params[0].value[0]))[0].value + ')';
         for (i = 0; i < params.length; i++) {
             res += '<br />' +
                   params[i].marker + ' ' +
@@ -25,7 +27,7 @@ e_tooltip_incidence_formatter <- function(
                   '</span>';
         }
         return res;
-    }", locale, jsonlite::toJSON(opts, auto_unbox = TRUE), locale))
+    }", jsonlite::toJSON(opts, auto_unbox = TRUE), locale, locale))
   tip <- structure(tip, class = c("JS_EVAL", "item_formatter"))
   return(tip)
 }
@@ -50,7 +52,9 @@ e_tooltip_estimate_formatter <- function(
   tip <- htmlwidgets::JS(sprintf("function(params, ticket, callback) {
         var fmt = new Intl.NumberFormat('en-GB', %s);
         var fmtDate = new Intl.DateTimeFormat('%s');
-        var res = fmtDate.format(Date.parse(params[0].value[0])) + '<br>' +
+        var fmtDay = new Intl.DateTimeFormat('%s', {weekday: 'short'})
+        var res = fmtDate.format(Date.parse(params[0].value[0])) + ' (' +
+          fmtDay.formatToParts(Date.parse(params[0].value[0]))[0].value + ')<br>' +
           'Estimated R<sub>e</sub> based on %s';
         for (i = 0; i < params.length/2; i++) {
             res += '<br />' +
@@ -63,16 +67,21 @@ e_tooltip_estimate_formatter <- function(
                   '</span>';
         }
         return res;
-    }", jsonlite::toJSON(opts, auto_unbox = TRUE), locale, data_type))
+    }", jsonlite::toJSON(opts, auto_unbox = TRUE), locale, locale, data_type))
   tip <- structure(tip, class = c("JS_EVAL", "item_formatter"))
   return(tip)
+}
+
+header_formatter <- function(header, class = "tooltip-header") {
+  str_c("<br><span class='", class, "'>", header, "</span>")
 }
 
 e_tooltip_independentvar_formatter <- function(
   style = c("decimal", "percent", "currency"),
   digits = 0,
   locale = "en-GB",
-  currency = "USD"
+  currency = "USD",
+  multiple = FALSE
 ) {
 
   style <- match.arg(style)
@@ -85,10 +94,15 @@ e_tooltip_independentvar_formatter <- function(
   tip <- htmlwidgets::JS(sprintf("function(params, ticket, callback) {
         var fmt = new Intl.NumberFormat('%s', %s);
         var fmtDate = new Intl.DateTimeFormat('%s');
-        var res = fmtDate.format(Date.parse(params[0].value[0]));
-        var header = params[0].seriesName
+        var fmtDay = new Intl.DateTimeFormat('%s', {weekday: 'short'})
+        var res = fmtDate.format(Date.parse(params[0].value[0])) + ' (' +
+          fmtDay.formatToParts(Date.parse(params[0].value[0]))[0].value +')';
+        var header = ''
         for (i = 0; i < params.length; i++) {
-
+            if (params[i].name != header) {
+              header = params[i].name;
+              res += header
+            }
             res += '<br />' +
                   params[i].marker + ' ' +
                   params[i].seriesName +
@@ -97,7 +111,7 @@ e_tooltip_independentvar_formatter <- function(
                   '</span>';
         }
         return res;
-    }", locale, jsonlite::toJSON(opts, auto_unbox = TRUE), locale))
+    }", locale, jsonlite::toJSON(opts, auto_unbox = TRUE), locale, locale))
   tip <- structure(tip, class = c("JS_EVAL", "item_formatter"))
   return(tip)
 }

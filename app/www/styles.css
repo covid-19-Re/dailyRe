@@ -48,3 +48,8 @@
 ::-webkit-contacts-auto-fill-button {
   visibility: hidden;
 }
+
+.tooltip-header {
+  font-weight:500;
+  font-style: italic;
+}
