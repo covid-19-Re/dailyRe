@@ -51,7 +51,7 @@ server <- function(input, output, session) {
   })
 
   incidenceData <- reactive({
-    validate(need(input$countrySelect != "", ""))
+    req(input$countrySelect)
 
     incidenceData <- filter(allIncidenceData,
       countryIso3 %in% input$countrySelect)
@@ -65,7 +65,7 @@ server <- function(input, output, session) {
     selectedRegion <- selectedRegion()
 
     if (multipleRegions()) {
-      validate(need(input$dataTypeSelect, ""))
+      req(input$dataTypeSelect)
       incidenceData <- incidenceData %>%
         filter(
           data_type == input$dataTypeSelect,
@@ -119,7 +119,7 @@ server <- function(input, output, session) {
   })
 
   rightTruncation <- reactive({
-    validate(need(input$countrySelect != "", ""))
+    req(input$countrySelect)
     incidenceData <- incidenceDataPlot()
 
     rightTruncation <- lapply(input$countrySelect, function(iso3) {
@@ -158,7 +158,7 @@ server <- function(input, output, session) {
     })
 
   estimateData <- reactive({
-    validate(need(input$countrySelect != "", ""))
+    req(input$countrySelect)
 
     selectedCountry <- input$countrySelect
     estimateData <- filter(allEstimateData,
@@ -175,7 +175,7 @@ server <- function(input, output, session) {
       filter(estimate_type == input$estimationType)
 
     if (multipleRegions()) {
-      validate(need(input$dataTypeSelect, ""))
+      req(input$dataTypeSelect)
       estimateDataPlot <- estimateDataPlot %>%
         filter(
           data_type == input$dataTypeSelect,
@@ -213,7 +213,7 @@ server <- function(input, output, session) {
   })
 
   mobilityDataGoogle <- reactive({
-    validate(need(input$countrySelect != "", ""))
+    req(input$countrySelect)
 
     selectedCountry <- input$countrySelect
     mobilityDataGoogle <- allMobilityDataGoogle %>%
@@ -270,7 +270,7 @@ server <- function(input, output, session) {
   })
 
   mobilityDataApple <- reactive({
-    validate(need(input$countrySelect != "", ""))
+    req(input$countrySelect)
 
     selectedCountry <- input$countrySelect
     mobilityDataApple <- allMobilityDataApple %>%
@@ -327,7 +327,7 @@ server <- function(input, output, session) {
   })
 
   vaccinationData <- reactive({
-    validate(need(input$countrySelect != "", ""))
+    req(input$countrySelect)
 
     selectedCountry <- input$countrySelect
     vaccinationData <- allVaccinationData %>%
@@ -380,7 +380,7 @@ server <- function(input, output, session) {
   })
 
   stringencyData <- reactive({
-    validate(need(input$countrySelect != "", ""))
+    req(input$countrySelect)
 
     selectedCountry <- input$countrySelect
     stringencyData <- allStringencyData %>%
@@ -948,7 +948,7 @@ server <- function(input, output, session) {
   output$dataSourcesUI <- renderUI({
 
     if (multipleRegions()) {
-      validate(need(input$dataTypeSelect, ""))
+      req(input$dataTypeSelect)
       dataTypeSelect <- input$dataTypeSelect
     } else {
       dataTypeSelect <- unique(incidenceDataPlot()$data_type)
@@ -1112,7 +1112,7 @@ server <- function(input, output, session) {
   })
 
   output$mapHist <- renderPlotly({
-    validate(need(input$mapPlot_groups, ""))
+    req(input$mapPlot_groups)
 
     if (input$mapPlot_groups == "Cases / 100'000 / 14 d") {
       midpoint <- input$casesMidpoint
@@ -1278,7 +1278,6 @@ server <- function(input, output, session) {
       )
   })
 
-
   # region zoom buttons
     observeEvent(input$zoomCHE, {
       mapPlot <- leafletProxy("mapPlot")
@@ -1303,7 +1302,7 @@ server <- function(input, output, session) {
 
   # methods text
     output$methodsUI <- renderUI({
-      validate(need(input$countrySelect, ""))
+      req(input$countrySelect)
       methodsFileName <- "md/methodsOnly_"
       if (length(input$countrySelect) == 1) {
         if (input$countrySelect == "CHE") {
