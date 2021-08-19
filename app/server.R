@@ -1328,20 +1328,20 @@ server <- function(input, output, session) {
       return(dataSourcesTable)
     }, escape = FALSE, options = list(paging = FALSE, searching = FALSE))
 
-    output$aboutUI <- renderUI({
-      fluidPage(
-        fluidRow(
-          column(12,
-            includeMarkdown("md/about.md")
-          )
-        ),
-        fluidRow(
-          column(12,
-            h3(i18n()$t("Data Sources")),
-            dataTableOutput("sourcesTable")
-          )
+  output$aboutUI <- renderUI({
+    fluidPage(
+      fluidRow(
+        column(12,
+          includeMarkdown("md/about.md")
+        )
+      ),
+      fluidRow(
+        column(12,
+          h3(i18n()$t("Data Sources")),
+          dataTableOutput("sourcesTable")
         )
       )
-    })
+    )
+  })
 
 }
