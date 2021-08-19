@@ -64,7 +64,7 @@ ui <- function(request) {
         uiOutput("methodsUI")
       ),
       tabPanel(
-        id = "Map",
+        id = "map",
         title = "Map", icon = icon("map"),
         fluidRow(style = "padding-bottom: 20px;",
           leafletOutput("mapPlot", width = "100%", height = 800) %>% withSpinner()
