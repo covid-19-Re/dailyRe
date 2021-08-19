@@ -965,7 +965,7 @@ server <- function(input, output, session) {
     if (length(input$googleMobilityType) > 0 && input$googleMobilityType[1] != "") {
       dataTypeSelect <- c(dataTypeSelect, "Google Mobility Data")
     }
-    print(dataTypeSelect)
+
     updateDataPlot <- updateData() %>%
       filter(
         data_type %in% dataTypeSelect,
@@ -977,7 +977,7 @@ server <- function(input, output, session) {
         lastChanged = max(lastChanged),
         .groups = "keep") %>%
       ungroup()
-    print(updateDataPlot)
+
     updateDataString <- dataUpdatesString(updateDataPlot,
       name = i18n()$t("Data Source"), dateFormat = i18n()$t("%Y-%m-%d"))
 
