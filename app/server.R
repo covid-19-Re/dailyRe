@@ -614,6 +614,10 @@ server <- function(input, output, session) {
         symbol = c("none", "none"), cursor = "default",
         emphasis = list(label = list(show = TRUE))) %>%
       e_grid(right = rightMarginP) %>%
+      e_x_axis(
+        min = plotMinX,
+        max = plotMaxX
+      ) %>%
       e_datazoom(x_index = 0, show = FALSE) %>%
       e_zoom(
         dataZoomIndex = 0,
@@ -684,8 +688,8 @@ server <- function(input, output, session) {
     plot <- plot %>%
       e_grid(right = rightMarginP) %>%
       e_x_axis(
-        min = as_datetime(min(incidenceData$date)),
-        max = as_datetime(max(incidenceData$date))
+        min = plotMinX,
+        max = plotMaxX
       ) %>%
       e_y_axis(
         name = yAxisLabel,

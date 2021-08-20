@@ -51,6 +51,9 @@ allIncidenceData <- allData$caseData %>%
   filter(data_type != "Stringency Index") %>%
   select(-local_infection)
 
+plotMinX <- as_datetime("2020-02-01", tz = "UTC")
+plotMaxX <- as_datetime(max(allIncidenceData$date))
+
 allEstimateData <- allData$estimates
 
 # source("R/dataFunctions.R")
