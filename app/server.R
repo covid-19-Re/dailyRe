@@ -39,6 +39,7 @@ server <- function(input, output, session) {
 # reactive data
 
   selectedRegion <- reactive({
+    req(input$countrySelect)
     if (is.null(input$regionSelect)) {
       return(input$countrySelect)
     } else {
@@ -60,7 +61,7 @@ server <- function(input, output, session) {
   })
 
   incidenceDataPlot <- reactive({
-
+    req(input$countrySelect)
     incidenceData <- incidenceData()
     selectedRegion <- selectedRegion()
 
@@ -236,7 +237,7 @@ server <- function(input, output, session) {
           date = date,
           region = region,
           data_type = data_type,
-          header = header_formatter(str_c("Mobility: ", input$googleMobilityType[1])),
+          header = header_formatter(str_c("Google Mobility Data: ", input$googleMobilityType[1])),
           series = region,
           value = change
         ) %>%
@@ -250,7 +251,7 @@ server <- function(input, output, session) {
         transmute(
           date = date,
           region = region,
-          header = header_formatter(i18n()$t("Mobility")),
+          header = header_formatter(i18n()$t("Google Mobility Data")),
           data_type = data_type,
           series = data_type,
           value = change
@@ -293,7 +294,7 @@ server <- function(input, output, session) {
           date = date,
           region = region,
           data_type = data_type,
-          header = header_formatter(str_c("Mobility: ", input$appleMobilityType[1])),
+          header = header_formatter(str_c("Apple Mobility Data: ", input$appleMobilityType[1])),
           series = region,
           value = change
         ) %>%
@@ -307,7 +308,7 @@ server <- function(input, output, session) {
         transmute(
           date = date,
           region = region,
-          header = header_formatter(i18n()$t("Mobility")),
+          header = header_formatter(i18n()$t("Apple Mobility Data")),
           data_type = data_type,
           series = data_type,
           value = change
@@ -341,9 +342,10 @@ server <- function(input, output, session) {
   vaccinationDataPlot <- reactive({
     vaccinationData <- vaccinationData()
     selectedRegion <- selectedRegion()
+    multipleRegions <- multipleRegions()
     hasVaccDataForRegions <- length(unique(vaccinationData$region)) > 1
 
-    if (multipleRegions() && hasVaccDataForRegions) {
+    if (multipleRegions && hasVaccDataForRegions) {
       vaccinationData <- vaccinationData %>%
         filter(
           data_type == input$vaccinationDataType[1],
@@ -392,7 +394,6 @@ server <- function(input, output, session) {
   })
 
   stringencyDataPlot <- reactive({
-    incidenceData <- incidenceDataPlot()
     stringencyData <- stringencyData()
     selectedRegion <- selectedRegion()
     hasVaccDataForRegions <- length(unique(stringencyData$region)) > 1
@@ -481,7 +482,6 @@ server <- function(input, output, session) {
   axisLabelSize <- 15
   axisLabelWeight <- 300
 
-
   output$incidencePlot <- renderEcharts4r({
     incidenceData <- incidenceDataPlot()
     selectedRegion <- selectedRegion()
@@ -560,6 +560,10 @@ server <- function(input, output, session) {
         nameTextStyle = list(fontSize = axisLabelSize, fontWeight = axisLabelWeight),
         nameGap = 50,
         nameLocation = "middle") %>%
+      e_x_axis(
+        min = plotMinX,
+        max = plotMaxX
+      ) %>%
       e_datazoom(x_index = 0) %>%
       e_zoom(
         dataZoomIndex = 0,
@@ -575,7 +579,6 @@ server <- function(input, output, session) {
 
   output$estimatePlot <- renderEcharts4r({
     estimateData <- estimateDataPlot()
-    incidenceData <- incidenceDataPlot()
     selectedRegion <- selectedRegion()
 
     if (multipleRegions()) {
@@ -583,9 +586,6 @@ server <- function(input, output, session) {
     } else {
       plotDataType <- ""
     }
-
-    minX <- as_datetime(min(incidenceData$date))
-    maxX <- as_datetime(max(incidenceData$date))
 
     estimateData %>%
       group_by(series) %>%
@@ -595,10 +595,6 @@ server <- function(input, output, session) {
         formatter = e_tooltip_estimate_formatter(
           style = "decimal", digits = 2, locale = input$lang,
           data_type = plotDataType)) %>%
-      e_x_axis(
-        min = minX,
-        max = maxX
-      ) %>%
       e_y_axis(
         name = i18n()$t("Reproductive number Re (95% CI)"),
         nameTextStyle = list(fontSize = axisLabelSize, fontWeight = axisLabelWeight),
@@ -631,20 +627,18 @@ server <- function(input, output, session) {
   })
 
   output$independentVarPlot <- renderEcharts4r({
-    incidenceData <- incidenceDataPlot()
     vaccinationData <- vaccinationDataPlot()
-
+    
     yAxisLabel <- ""
+    plot <- e_chart()
     if (dim(vaccinationData)[1] > 0) {
       yAxisLabel <- i18n()$t("Vaccinations")
+      plot <- vaccinationData %>%
+        e_charts(x = date) %>%
+        e_line(serie = value,
+          lineStyle = list(type = "solid"),
+          symbol = "none", cursor = "default", bind = header)
     }
-
-    plot <- vaccinationData %>%
-      group_by(series) %>%
-      e_charts(x = date) %>%
-      e_line(serie = value,
-        lineStyle = list(type = "solid"),
-        symbol = "none", cursor = "default", bind = header)
 
     if (input$showStringency) {
       plot <- plot %>%
@@ -985,7 +979,8 @@ server <- function(input, output, session) {
     updateDataString <- dataUpdatesString(updateDataPlot,
       name = i18n()$t("Data Source"), dateFormat = i18n()$t("%Y-%m-%d"))
 
-    ui <- helpText(updateDataString, style = "text-align: center; padding-left: 5% !important; padding-right: 5% !important;")
+    ui <- helpText(updateDataString,
+      style = "text-align: center; padding-left: 5% !important; padding-right: 5% !important;")
     return(ui)
   })
 
@@ -1232,55 +1227,54 @@ server <- function(input, output, session) {
           showGroup(selectedMapGroup$group)
       }
     })
-  
-  # additional UI
 
-  output$mapOptionsUI <- renderUI({
-    fluidRow(
-        column(6,
-          regionCheckboxInput("regionCountrySelect", label = i18n()$t("Display regional data"),
-            choices = c("Switzerland" = "CHE", "South Africa" = "ZAF"), selected = "", zoomLabel = "Zoom")
-        ),
-        column(6,
-         HTML(
-          "<label class=\"control-label\">",
-          i18n()$t("Color scale options"),
-          "</label>"
+  # additional UI
+    output$mapOptionsUI <- renderUI({
+      fluidRow(
+          column(6,
+            regionCheckboxInput("regionCountrySelect", label = i18n()$t("Display regional data"),
+              choices = c("Switzerland" = "CHE", "South Africa" = "ZAF"), selected = "", zoomLabel = "Zoom")
           ),
-          plotlyOutput("mapHist", height = "250px") %>% withSpinner(),
-          column(12,
-            conditionalPanel(
-              condition = "input.mapPlot_groups == \"Cases / 100'000 / 14 d\"",
-              div(
-                div(style = "display: inline-block;vertical-align:top;width:40%",
-                  numericInput("casesMidpoint", "Breakpoint", value = 60,
-                    min = 0, max = 1500, step = 1)
-                ),
-                div(style = "display: inline-block;vertical-align:top;width:40%",
-                  numericInput("casesCutoff", "Cutoff",
-                    value = 300,
-                    min = 0, max = 1500, step = 50)
-                )
-              )
+          column(6,
+            HTML(
+            "<label class=\"control-label\">",
+            i18n()$t("Color scale options"),
+            "</label>"
             ),
-            conditionalPanel(
-              condition = "input.mapPlot_groups == 'median Re'",
-              div(
-                div(style = "display: inline-block;vertical-align:top;width:40%",
-                  numericInput("reMidpoint", "Breakpoint", value = 1,
-                    min = 0, max = 20, step = 0.1)
-                ),
-                div(style = "display: inline-block;vertical-align:top;width:40%",
-                  numericInput("reCutoff", "Cutoff",
-                    value = 2,
-                    min = 0, max = 20, step = 0.1)
+            plotlyOutput("mapHist", height = "250px") %>% withSpinner(),
+            column(12,
+              conditionalPanel(
+                condition = "input.mapPlot_groups == \"Cases / 100'000 / 14 d\"",
+                div(
+                  div(style = "display: inline-block;vertical-align:top;width:40%",
+                    numericInput("casesMidpoint", "Breakpoint", value = 60,
+                      min = 0, max = 1500, step = 1)
+                  ),
+                  div(style = "display: inline-block;vertical-align:top;width:40%",
+                    numericInput("casesCutoff", "Cutoff",
+                      value = 300,
+                      min = 0, max = 1500, step = 50)
+                  )
+                )
+              ),
+              conditionalPanel(
+                condition = "input.mapPlot_groups == 'median Re'",
+                div(
+                  div(style = "display: inline-block;vertical-align:top;width:40%",
+                    numericInput("reMidpoint", "Breakpoint", value = 1,
+                      min = 0, max = 20, step = 0.1)
+                  ),
+                  div(style = "display: inline-block;vertical-align:top;width:40%",
+                    numericInput("reCutoff", "Cutoff",
+                      value = 2,
+                      min = 0, max = 20, step = 0.1)
+                  )
                 )
               )
             )
           )
         )
-      )
-  })
+    })
 
   # region zoom buttons
     observeEvent(input$zoomCHE, {
@@ -1325,27 +1319,26 @@ server <- function(input, output, session) {
 
 
   # about Page
+    output$sourcesTable <- renderDataTable({
+        dataSourcesTable <- dataSources
+        names(dataSourcesTable) <- sapply(unique(names(dataSources)), i18n()$t,  USE.NAMES = FALSE)
+        return(dataSourcesTable)
+      }, escape = FALSE, options = list(paging = FALSE, searching = FALSE))
 
-  output$sourcesTable <- renderDataTable({
-      dataSourcesTable <- dataSources
-      names(dataSourcesTable) <- sapply(unique(names(dataSources)), i18n()$t,  USE.NAMES = FALSE)
-      return(dataSourcesTable)
-    }, escape = FALSE, options = list(paging = FALSE, searching = FALSE))
-
-  output$aboutUI <- renderUI({
-    fluidPage(
-      fluidRow(
-        column(12,
-          includeMarkdown("md/about.md")
-        )
-      ),
-      fluidRow(
-        column(12,
-          h3(i18n()$t("Data Sources")),
-          dataTableOutput("sourcesTable")
+    output$aboutUI <- renderUI({
+      fluidPage(
+        fluidRow(
+          column(12,
+            includeMarkdown("md/about.md")
+          )
+        ),
+        fluidRow(
+          column(12,
+            h3(i18n()$t("Data Sources")),
+            dataTableOutput("sourcesTable")
+          )
         )
       )
-    )
-  })
+    })
 
 }
