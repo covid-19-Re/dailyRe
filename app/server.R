@@ -213,118 +213,66 @@ server <- function(input, output, session) {
     return(estimateDataPlot)
   })
 
-  mobilityDataGoogle <- reactive({
+  mobilityData <- reactive({
     req(input$countrySelect)
 
     selectedCountry <- input$countrySelect
-    mobilityDataGoogle <- allMobilityDataGoogle %>%
+    mobilityData <- allMobilityData %>%
       filter(countryIso3 %in% selectedCountry)
 
-    return(mobilityDataGoogle)
+    return(mobilityData)
   })
 
-  mobilityDataGooglePlot <- reactive({
-    mobilityDataGoogle <- mobilityDataGoogle()
+  mobilityDataPlot <- reactive({
+    mobilityData <- mobilityData()
     selectedRegion <- selectedRegion()
 
     if (multipleRegions()) {
-      mobilityDataGoogle <- mobilityDataGoogle %>%
+      mobilityData <- mobilityData %>%
         filter(
-          data_type == input$googleMobilityType[1],
+          data_type == input$mobilityType[1],
           region %in% selectedRegion
         ) %>%
         transmute(
           date = date,
           region = region,
           data_type = data_type,
-          header = header_formatter(str_c("Google Mobility Data: ", input$googleMobilityType[1])),
+          header = header_formatter(str_c(
+            if_else(data_type %in% googleMobilityDataTypes, "Mobility Data Google: ", "Mobility Data Apple: "),
+            input$mobilityType[1]
+          )),
           series = region,
           value = change
         ) %>%
         group_by(series)
     } else {
-      mobilityDataGoogle <- mobilityDataGoogle %>%
+      mobilityData <- mobilityData %>%
         filter(
-          data_type %in% input$googleMobilityType,
+          data_type %in% input$mobilityType,
           region %in% selectedRegion
         ) %>%
         transmute(
           date = date,
           region = region,
-          header = header_formatter(i18n()$t("Google Mobility Data")),
           data_type = data_type,
+          header = header_formatter(
+              if_else(data_type %in% googleMobilityDataTypes, "Mobility Data Google", "Mobility Data Apple")
+            ),
           series = data_type,
           value = change
           ) %>%
         group_by(series)
     }
 
-    if (input$mobilitySmoothingGoogle > 0) {
-      mobilityDataGoogle <- mobilityDataGoogle %>%
+    if (input$mobilitySmoothing > 0) {
+      mobilityData <- mobilityData %>%
         group_by(region, data_type) %>%
         mutate(
-          value = slide_index_dbl(value, date, mean, .before = days(as.integer(input$mobilitySmoothingGoogle) - 1))
+          value = slide_index_dbl(value, date, mean, .before = days(as.integer(input$mobilitySmoothing) - 1))
         )
     }
 
-    return(mobilityDataGoogle)
-  })
-
-  mobilityDataApple <- reactive({
-    req(input$countrySelect)
-
-    selectedCountry <- input$countrySelect
-    mobilityDataApple <- allMobilityDataApple %>%
-      filter(countryIso3 %in% selectedCountry)
-
-    return(mobilityDataApple)
-  })
-
-  mobilityDataApplePlot <- reactive({
-    mobilityDataApple <- mobilityDataApple()
-    selectedRegion <- selectedRegion()
-
-    if (multipleRegions()) {
-      mobilityDataApple <- mobilityDataApple %>%
-        filter(
-          data_type == input$appleMobilityType[1],
-          region %in% selectedRegion
-        ) %>%
-        transmute(
-          date = date,
-          region = region,
-          data_type = data_type,
-          header = header_formatter(str_c("Apple Mobility Data: ", input$appleMobilityType[1])),
-          series = region,
-          value = change
-        ) %>%
-        group_by(series)
-    } else {
-      mobilityDataApple <- mobilityDataApple %>%
-        filter(
-          data_type %in% input$appleMobilityType,
-          region %in% selectedRegion
-        ) %>%
-        transmute(
-          date = date,
-          region = region,
-          header = header_formatter(i18n()$t("Apple Mobility Data")),
-          data_type = data_type,
-          series = data_type,
-          value = change
-          ) %>%
-        group_by(series)
-    }
-
-    if (input$mobilitySmoothingApple > 0) {
-      mobilityDataApple <- mobilityDataApple %>%
-        group_by(region, data_type) %>%
-        mutate(
-          value = slide_index_dbl(value, date, mean, .before = days(as.integer(input$mobilitySmoothingApple) - 1))
-        )
-    }
-
-    return(mobilityDataApple)
+    return(mobilityData)
   })
 
   vaccinationData <- reactive({
@@ -652,10 +600,10 @@ server <- function(input, output, session) {
       yAxisLabel <- str_c(i18n()$t("Oxford Stringency Index"), yAxisLabel, sep = " /\n")
     }
 
-    if (length(input$googleMobilityType) > 0) {
+    if (length(input$mobilityType) > 0) {
       plot <- plot %>%
         e_data(
-          mobilityDataGooglePlot() %>%
+          mobilityDataPlot() %>%
             group_by(series),
           x = date) %>%
         e_line(serie = value,
@@ -663,20 +611,6 @@ server <- function(input, output, session) {
           symbol = "none", cursor = "default", bind = header)
 
       yAxisLabel <- str_c(yAxisLabel, i18n()$t("% mobility change"), sep = " /\n")
-    }
-
-    if (length(input$appleMobilityType) > 0) {
-      plot <- plot %>%
-        e_data(
-          mobilityDataApplePlot() %>%
-            group_by(series),
-          x = date) %>%
-        e_line(serie = value,
-          lineStyle = list(type = "dotted"),
-          symbol = "none", cursor = "default", bind = header)
-      if (!(length(input$googleMobilityType) > 0)) {
-        yAxisLabel <- str_c(yAxisLabel, i18n()$t("% mobility change"), sep = " /\n")
-      }
     }
 
     plot <- plot %>%
@@ -859,17 +793,24 @@ server <- function(input, output, session) {
     )
   })
 
-  output$googleMobilityTypeChoiceUI <- renderUI({
-    mobilityDataGoogle <- mobilityDataGoogle()
-    availableMobilityDataGoogle <- c("", unique(mobilityDataGoogle$data_type))
+  output$mobilityTypeChoiceUI <- renderUI({
+    mobilityData <- mobilityData()
 
-    choices <- c(0, 7, 14)
-    names(choices) <- c(i18n()$t("no smoothing"), i18n()$t("7 day average"), i18n()$t("14 day average"))
+    availableMobilityDf <- mobilityData %>%
+      group_by(source) %>%
+      summarise(data_type = unique(data_type), .groups = "drop")
+
+    availableMobility <- c(
+      "",
+      split(availableMobilityDf$data_type, availableMobilityDf$source))
+
+    smoothingChoices <- c(0, 7, 14)
+    names(smoothingChoices) <- c(i18n()$t("no smoothing"), i18n()$t("7 day average"), i18n()$t("14 day average"))
 
     ui <- tagList(
       selectizeInput(
-        inputId = "googleMobilityType", label = i18n()$t("Show Google mobility data"),
-        choices = availableMobilityDataGoogle,
+        inputId = "mobilityType", label = i18n()$t("Show mobility data"),
+        choices = availableMobility,
         selected = "",
         options = list(
           placeholder = i18n()$t("Select mobility category"),
@@ -879,41 +820,8 @@ server <- function(input, output, session) {
         multiple = !multipleRegions(), width = "100%", size = NULL
       ),
       selectizeInput(
-        inputId = "mobilitySmoothingGoogle", label = i18n()$t("Smooth Google mobility data"),
-        choices = choices,
-        selected = 7,
-        options = list(
-          hideSelected = TRUE,
-          sortField = "label"),
-        multiple = FALSE, width = "100%", size = NULL
-      )
-    )
-
-    return(ui)
-  })
-
-  output$appleMobilityTypeChoiceUI <- renderUI({
-    mobilityDataApple <- mobilityDataApple()
-    availableMobilityDataApple <- c("", unique(mobilityDataApple$data_type))
-
-    choices <- c(0, 7, 14)
-    names(choices) <- c(i18n()$t("no smoothing"), i18n()$t("7 day average"), i18n()$t("14 day average"))
-
-    ui <- tagList(
-      selectizeInput(
-        inputId = "appleMobilityType", label = i18n()$t("Show Apple mobility data"),
-        choices = availableMobilityDataApple,
-        selected = "",
-        options = list(
-          placeholder = i18n()$t("Select mobility category"),
-          plugins = list("remove_button"),
-          hideSelected = TRUE,
-          sortField = "label"),
-        multiple = !multipleRegions(), width = "100%", size = NULL
-      ),
-      selectizeInput(
-        inputId = "mobilitySmoothingApple", label = i18n()$t("Smooth Apple mobility data"),
-        choices = choices,
+        inputId = "mobilitySmoothing", label = i18n()$t("Smooth mobility data"),
+        choices = smoothingChoices,
         selected = 7,
         options = list(
           hideSelected = TRUE,
@@ -956,11 +864,11 @@ server <- function(input, output, session) {
       dataTypeSelect <- c(dataTypeSelect, "Stringency Index")
     }
 
-    if (length(input$appleMobilityType) > 0 && input$appleMobilityType[1] != "") {
+    if (any(input$mobilityType %in% appleMobilityDataTypes)) {
       dataTypeSelect <- c(dataTypeSelect, "Apple Mobility Data")
     }
 
-    if (length(input$googleMobilityType) > 0 && input$googleMobilityType[1] != "") {
+    if (any(input$mobilityType %in% googleMobilityDataTypes)) {
       dataTypeSelect <- c(dataTypeSelect, "Google Mobility Data")
     }
 

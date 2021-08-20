@@ -56,34 +56,18 @@ plotMaxX <- as_datetime(max(allIncidenceData$date))
 
 allEstimateData <- allData$estimates
 
-# source("R/dataFunctions.R")
-# countriesWithRegions <- allData$caseData %>%
-#   filter(data_type != "Stringency Index") %>%
-#   select(-local_infection) %>%
-#   select(countryIso3, region) %>%
-#   group_by(countryIso3) %>%
-#   summarise(nRegions = length(unique(region))) %>%
-#   filter(nRegions > 1)
+googleMobilityData <- qread("data/serialized/allMobilityDataGoogle.qs") %>%
+    mutate(source = "Google Mobility Data")
+googleMobilityDataTypes <- unique(googleMobilityData$data_type)
 
-# allMobilityDataGoogle <- getMobilityDataGoogle(tempFile = "data/temp/mobilityDataGoogle.csv", tReload = 8 * 60 * 60) %>%
-#   mutate(data_type = placeCategory %>%
-#     str_replace_all("_", " ") %>%
-#     str_to_title(),
-#     change = change * 100) %>%
-#   filter(countryIso3 == region | countryIso3 %in% countriesWithRegions$countryIso3) %>%
-#   select(-placeCategory)
-# qsave(allMobilityDataGoogle, "data/serialized/allMobilityDataGoogle.qs")
+appleMobilityData <- qread("data/serialized/allMobilityDataApple.qs") %>%
+    mutate(source = "Apple Mobility Data")
+appleMobilityDataTypes <- unique(appleMobilityData$data_type)
 
-# allMobilityDataApple <- getMobilityDataApple(tempFile = "data/temp/mobilityDataApple.csv", tReload = 8 * 60 * 60) %>%
-#   mutate(
-#     data_type = str_to_title(transportationType),
-#     change = change * 100) %>%
-#   select(-percent, -transportationType) %>%
-#   filter(countryIso3 == region | countryIso3 %in% countriesWithRegions$countryIso3) 
-# qsave(allMobilityDataApple, "data/serialized/allMobilityDataApple.qs")
-
-allMobilityDataGoogle <- qread("data/serialized/allMobilityDataGoogle.qs")
-allMobilityDataApple <- qread("data/serialized/allMobilityDataApple.qs")
+allMobilityData <- bind_rows(
+  googleMobilityData,
+  appleMobilityData
+)
 
 allStringencyData <- allData$caseData %>%
   select(-c(populationSize, local_infection:testPositivity)) %>%
