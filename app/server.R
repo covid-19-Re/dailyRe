@@ -704,9 +704,11 @@ server <- function(input, output, session) {
         ui <- tagList(
           ui,
           div(class = "quickRegionSelect",
-            actionLink("selectGrossregionen", i18n()$t("Greater regions"),
+            # actionLink("selectCHECanton", i18n()$t("Cantons"),
+            #   icon = icon("arrow-alt-circle-right", class = "fas")),
+            actionLink("selectCHEGrossregionen", i18n()$t("Greater regions"),
               icon = icon("arrow-alt-circle-right", class = "fas")),
-            actionLink("selectSentinella", i18n()$t("Sentinella Regions"),
+            actionLink("selectCHESentinella", i18n()$t("Sentinella Regions"),
               icon = icon("arrow-alt-circle-right", class = "fas"))
           )
         )
@@ -721,12 +723,17 @@ server <- function(input, output, session) {
     return(ui)
   })
 
-  observeEvent(input$selectGrossregionen, {
+  # observeEvent(input$selectCHECanton, {
+  #   updateSelectizeInput(session, "regionSelect",
+  #     selected = c(availableRegions()$Canton, "CHE"))
+  # })
+
+  observeEvent(input$selectCHEGrossregionen, {
     updateSelectizeInput(session, "regionSelect",
       selected = c(availableRegions()$`Greater Region`, "CHE"))
   })
 
-  observeEvent(input$selectSentinella, {
+  observeEvent(input$selectCHESentinella, {
     updateSelectizeInput(session, "regionSelect",
       selected = c(availableRegions()$`Sentinella Regions`, "CHE"))
   })
@@ -741,7 +748,7 @@ server <- function(input, output, session) {
     re <- countryReEstimate()
     HTML(glue::glue("
       <div class='reBox'>
-        <b>R<sub>e</sub> in {re$country[1]}</b><br>
+        <b>R<sub>e</sub> in {re$country[1]}</b> ({re$dateStr[1]})<br>
         <table>
           <tr>
             <td>7-Day Average</td>
