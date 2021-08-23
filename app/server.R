@@ -168,6 +168,28 @@ server <- function(input, output, session) {
     return(estimateData)
   })
 
+  countryReEstimate <- reactive({
+    estimateData <- estimateData()
+
+    countryReEstimate <- estimateData %>%
+      filter(region == input$countrySelect,
+      data_type == "Confirmed cases") %>%
+      group_by(estimate_type) %>%
+      filter(
+        date == max(date)
+      ) %>%
+      mutate(across(where(is.numeric), ~sprintf("%.2f", round(.x, 2)))) %>%
+      transmute(
+        country = country,
+        dateStr = if_else(estimate_type == "Cori_step",
+          str_c(format(date - 6, "%b-%d"), " - ", format(date, "%b-%d")),
+          format(date, "%b-%d")),
+        reText = str_c(
+          median_R_mean, " (", median_R_lowHPD, " - ", median_R_highHPD, ")")
+      )
+    return(countryReEstimate)
+  })
+
   estimateDataPlot <- reactive({
     estimateData <- estimateData()
     selectedRegion <- selectedRegion()
@@ -713,6 +735,26 @@ server <- function(input, output, session) {
     updateSelectizeInput(session, "regionSelect",
       selected = c(availableRegions()$Province, "CHE"))
   })
+
+  output$currentReUI <- renderUI({
+    req(length(input$countrySelect) == 1)
+    re <- countryReEstimate()
+    HTML(glue::glue("
+      <div class='reBox'>
+        <b>R<sub>e</sub> in {re$country[1]}</b><br>
+        <table>
+          <tr>
+            <td>7-Day Average</td>
+            <td><span class='badge badge-re'>{re$reText[2]}</span></td>
+          </tr>
+          <tr>
+            <td>Most recent</td>
+            <td><span class='badge badge-re'>{re$reText[1]}</span></td>
+          </tr>
+        </table>
+      </div>
+    "))
+
   })
 
   ### Data Type

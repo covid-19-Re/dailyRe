@@ -24,11 +24,12 @@ ui <- function(request) {
         fluidRow(class = "selectCol",
           column(5,
             uiOutput("countryChoiceUI")
-            # , verbatimTextOutput("testSelectedCountry")
           ),
           column(5,
             uiOutput("regionChoiceUI")
-            # , verbatimTextOutput("testSelectedRegion")
+          ),
+          column(2,
+            uiOutput("currentReUI")
           )
         ),
         fluidRow(

@@ -65,3 +65,23 @@
   color: #535353;
   margin-right :20px;
 }
+
+.badge-re {
+  font-size: 12pt;
+  font-weight: 700;
+  background-color: #ffc107;
+  margin-left: 20px;
+  margin-bottom: 5px;
+  text-align: right;
+}
+
+.reBox {
+  background-color: #f0f0f0;
+  padding: 10px;
+  border-radius: 4px;
+  line-height: 20pt;
+}
+
+#incidenceSmoothing-label {
+  margin-top: 10px;
+}
