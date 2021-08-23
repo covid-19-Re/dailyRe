@@ -54,3 +54,14 @@
   font-weight:500;
   font-style: italic;
 }
+
+.quickRegionSelect {
+  margin-top: -15px;
+  margin-left: 15px;
+  margin-bottom: 20px;
+}
+
+.quickRegionSelect > a {
+  color: #535353;
+  margin-right :20px;
+}

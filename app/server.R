@@ -384,8 +384,9 @@ server <- function(input, output, session) {
 
     incidenceData <- incidenceData()
     availableRegions <- unique(incidenceData$region)
+    hasMultipleRegions <- length(availableRegions[!(availableRegions %in% input$countrySelect)]) > 0
 
-    if (length(input$countrySelect) == 1) {
+    if (hasMultipleRegions && length(input$countrySelect) == 1) {
       if (input$countrySelect == "CHE") {
         cantons <- availableRegions[str_detect(availableRegions, "^.{2}$")]
         names(cantons) <- cantons
@@ -576,7 +577,7 @@ server <- function(input, output, session) {
 
   output$independentVarPlot <- renderEcharts4r({
     vaccinationData <- vaccinationDataPlot()
-    
+
     yAxisLabel <- ""
     plot <- e_chart()
     if (dim(vaccinationData)[1] > 0) {
@@ -662,20 +663,56 @@ server <- function(input, output, session) {
   ### Region Select
   output$regionChoiceUI <- renderUI({
     availableRegions <- availableRegions()
-    if (availableRegions[[2]][1] == "") {
+    if (length(availableRegions[[2]][1]) == 0 | availableRegions[[2]][1] == "") {
       return(NULL)
     } else {
-      selectizeInput(
-        inputId = "regionSelect", label = i18n()$t("Subdivisions"),
-        choices = availableRegions(),
-        selected = "",
-        options = list(
-          placeholder = i18n()$t("Select subdivisions"),
-          plugins = list("remove_button"),
-          hideSelected = TRUE),
-        multiple = TRUE, width = "100%", size = NULL
+      ui <- tagList(
+        selectizeInput(
+          inputId = "regionSelect", label = i18n()$t("Subdivisions"),
+          choices = availableRegions(),
+          selected = "",
+          options = list(
+            placeholder = i18n()$t("Select subdivisions"),
+            plugins = list("remove_button"),
+            hideSelected = TRUE),
+          multiple = TRUE, width = "100%", size = NULL
+        )
       )
+      if (all(input$countrySelect == "CHE")) {
+        ui <- tagList(
+          ui,
+          div(class = "quickRegionSelect",
+            actionLink("selectGrossregionen", i18n()$t("Greater regions"),
+              icon = icon("arrow-alt-circle-right", class = "fas")),
+            actionLink("selectSentinella", i18n()$t("Sentinella Regions"),
+              icon = icon("arrow-alt-circle-right", class = "fas"))
+          )
+        )
+      } else if (all(input$countrySelect == "ZAF")) {
+        ui <- tagList(
+          ui,
+          actionLink("selectZAFprovinces", "Provinces",
+            icon = icon("arrow-alt-circle-right", class = "fas"))
+        )
+      }
     }
+    return(ui)
+  })
+
+  observeEvent(input$selectGrossregionen, {
+    updateSelectizeInput(session, "regionSelect",
+      selected = c(availableRegions()$`Greater Region`, "CHE"))
+  })
+
+  observeEvent(input$selectSentinella, {
+    updateSelectizeInput(session, "regionSelect",
+      selected = c(availableRegions()$`Sentinella Regions`, "CHE"))
+  })
+
+  observeEvent(input$selectZAFprovinces, {
+    updateSelectizeInput(session, "regionSelect",
+      selected = c(availableRegions()$Province, "CHE"))
+  })
   })
 
   ### Data Type
