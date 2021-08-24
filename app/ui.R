@@ -21,6 +21,7 @@ ui <- function(request) {
         id = "timeseries",
         title = "Timeseries",
         icon = icon("chart-area"),
+        uiOutput("infoBanner"),
         fluidRow(class = "selectCol",
           column(5,
             uiOutput("countryChoiceUI")

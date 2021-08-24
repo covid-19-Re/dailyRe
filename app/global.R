@@ -10,7 +10,7 @@ library(sf)
 library(leaflet)
 library(plotly)
 
-reConfig <- config::get(value = "re")
+reConfig <- config::get()
 
 # set up translation
 library(shiny.i18n)
