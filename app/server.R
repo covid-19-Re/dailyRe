@@ -859,7 +859,8 @@ server <- function(input, output, session) {
           "<br>",
           i18n()$t("'Step-wise constant' estimates R<sub>e</sub> assumes constant R<sub>e</sub> when Oxford Stringency Index is constant.")
         )
-      )
+      ),
+      tags$a(href = "https://github.com/covid-19-Re/dailyRe-Data", target="_blank", "Download raw data")
     )
   })
 
