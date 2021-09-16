@@ -70,5 +70,5 @@ allMobilityData <- bind_rows(
 )
 
 allStringencyData <- allData$caseData %>%
-  select(-c(populationSize, local_infection:testPositivity)) %>%
+  select(-c(populationSize, local_infection, positiveTests:testPositivity)) %>%
   filter(data_type == "Stringency Index")
