@@ -704,8 +704,8 @@ server <- function(input, output, session) {
         ui <- tagList(
           ui,
           div(class = "quickRegionSelect",
-            # actionLink("selectCHECanton", i18n()$t("Cantons"),
-            #   icon = icon("arrow-alt-circle-right", class = "fas")),
+            actionLink("selectCHECanton", i18n()$t("Cantons"),
+              icon = icon("arrow-alt-circle-right", class = "fas")),
             actionLink("selectCHEGrossregionen", i18n()$t("Greater regions"),
               icon = icon("arrow-alt-circle-right", class = "fas")),
             actionLink("selectCHESentinella", i18n()$t("Sentinella Regions"),
@@ -723,10 +723,10 @@ server <- function(input, output, session) {
     return(ui)
   })
 
-  # observeEvent(input$selectCHECanton, {
-  #   updateSelectizeInput(session, "regionSelect",
-  #     selected = c(availableRegions()$Canton, "CHE"))
-  # })
+  observeEvent(input$selectCHECanton, {
+    updateSelectizeInput(session, "regionSelect",
+      selected = c(availableRegions()$Canton, "CHE"))
+  })
 
   observeEvent(input$selectCHEGrossregionen, {
     updateSelectizeInput(session, "regionSelect",
