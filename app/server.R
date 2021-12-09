@@ -37,7 +37,6 @@ server <- function(input, output, session) {
   })
 
 # reactive data
-
   selectedRegion <- reactive({
     req(input$countrySelect)
     if (is.null(input$regionSelect)) {
@@ -551,6 +550,11 @@ server <- function(input, output, session) {
   output$estimatePlot <- renderEcharts4r({
     estimateData <- estimateDataPlot()
     selectedRegion <- selectedRegion()
+
+    # also update when incidence data changes, or loess or deconvultion are shown
+    incidenceDataPlot()
+    input$incidenceDeconvolution
+    input$incidenceLoess
 
     if (multipleRegions()) {
       plotDataType <- estimateData$data_type[1]
