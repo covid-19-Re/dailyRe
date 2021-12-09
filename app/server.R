@@ -44,7 +44,7 @@ server <- function(input, output, session) {
     } else {
       return(input$regionSelect)
     }
-  })
+  }) %>% debounce(1000)
 
   multipleRegions <- reactive({
     return(length(selectedRegion()) > 1)
