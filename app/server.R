@@ -1034,12 +1034,12 @@ server <- function(input, output, session) {
 
       map <- map %>%
         addPolygonLayer(
-          shapeFile = CHEregionsShape,
+          shapeFile = cheRegionsShape,
           fillColor = ~cases14pal(cases14d), group = "Cases / 100'000 / 14 d",
           labels = cheCasesLabels,
           options = pathOptions(pane = "region")) %>%
         addPolygonLayer(
-          shapeFile = CHEregionsShape,
+          shapeFile = cheRegionsShape,
           fillColor = ~repal(median_R_mean), group = "median Re",
           labels = cheReLabels,
           options = pathOptions(pane = "region"))
@@ -1051,12 +1051,12 @@ server <- function(input, output, session) {
 
       map <- map %>%
         addPolygonLayer(
-          shapeFile = ZAFregionsShape,
+          shapeFile = zafRegionsShape,
           fillColor = ~cases14pal(cases14d), group = "Cases / 100'000 / 14 d",
           labels = zafCasesLabels,
           options = pathOptions(pane = "region")) %>%
         addPolygonLayer(
-          shapeFile = ZAFregionsShape,
+          shapeFile = zafRegionsShape,
           fillColor = ~repal(median_R_mean),
           group = "median Re",
           labels = zafReLabels,

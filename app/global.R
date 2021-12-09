@@ -37,11 +37,11 @@ dataSources <-  qread("data/serialized/dataSources.qs")
 # Map
 worldMapData <-  qread("data/serialized/worldMapData.qs")
 countriesShape <-  qread("data/serialized/countriesShape.qs")
-CHEregionsShape <-  qread("data/serialized/CHEregionsShape.qs")
+cheRegionsShape <-  qread("data/serialized/cheRegionsShape.qs")
 cheCasesLabels <-  qread("data/serialized/cheCasesLabels.qs")
 cheReLabels <-  qread("data/serialized/cheReLabels.qs")
 
-ZAFregionsShape <-  qread("data/serialized/ZAFregionsShape.qs")
+zafRegionsShape <-  qread("data/serialized/zafRegionsShape.qs")
 zafCasesLabels <-  qread("data/serialized/zafCasesLabels.qs")
 zafReLabels <-  qread("data/serialized/zafReLabels.qs")
 
