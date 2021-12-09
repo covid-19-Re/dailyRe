@@ -555,6 +555,7 @@ server <- function(input, output, session) {
     incidenceDataPlot()
     input$incidenceDeconvolution
     input$incidenceLoess
+    input$incidenceLogAxis
 
     if (multipleRegions()) {
       plotDataType <- estimateData$data_type[1]
