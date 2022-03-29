@@ -944,21 +944,34 @@ server <- function(input, output, session) {
 
   output$infoBanner <- renderUI({
     if (reConfig$public) {
-      return(NULL)
-    }
-    ui <- fluidRow(
-      column(12,
-        HTML(
-          "<div class='moreImportantBox'>
-            <p><strong>IMPORTANT</strong>
-            You are currently viewing the test version of the Covid-19 R<sub>e</sub>
-            Dashboard. Reported values might be different to the 
-            <a href='https://ibz-shiny.ethz.ch/covid-19-re-international/'>public version</a> 
-            and subject to larger uncertainties.</p>
-          </div>"
+      ui <- fluidRow(
+        column(12,
+          HTML(
+            "<div class='infoBox'>
+              <p><strong>IMPORTANT</strong>
+              As of 29.3.2022 swiss estimates are based only on publicly available data from 
+              <a href='https://www.covid19.admin.ch'>BAG</a>. Reported values might be different than previous versions
+              and likely to be less precise.</p>
+            </div>"
+          )
         )
       )
-    )
+    } else {
+      ui <- fluidRow(
+        column(12,
+          HTML(
+            "<div class='moreImportantBox'>
+              <p><strong>IMPORTANT</strong>
+              You are currently viewing the test version of the Covid-19 R<sub>e</sub>
+              Dashboard. Reported values might be different to the 
+              <a href='https://ibz-shiny.ethz.ch/covid-19-re-international/'>public version</a> 
+              and subject to larger uncertainties.</p>
+            </div>"
+          )
+        )
+      )
+    }
+    return(ui)
   })
 
   # Data sources

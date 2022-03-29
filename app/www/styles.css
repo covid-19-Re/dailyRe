@@ -102,3 +102,20 @@
 .moreImportantBox >* a {
   color: black !important;
 }
+
+.infoBox {
+  line-height: 20px;
+  margin-bottom: 20px;
+  border-bottom-left-radius: 2px;
+  border-bottom-right-radius: 2px;
+  border-top-left-radius: 2px;
+  border-top-right-radius: 2px;
+  box-shadow: rgba(0, 0, 0, 0.1) 0px 1px 1px 0px;
+  box-sizing: border-box;
+  padding: 10px;
+  background-color: #af92f1;
+}
+
+.infoBox >* a {
+  color: black !important;
+}
