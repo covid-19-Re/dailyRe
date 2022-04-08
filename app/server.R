@@ -947,12 +947,9 @@ server <- function(input, output, session) {
       ui <- fluidRow(
         column(12,
           HTML(
-            "<div class='infoBox'>
-              <p><strong>IMPORTANT</strong>
-              As of 29.3.2022 swiss estimates are based only on publicly available data from 
-              <a href='https://www.covid19.admin.ch'>BAG</a>. Reported values might be different than previous versions
-              and likely to be less precise.</p>
-            </div>"
+            "<div class='infoBox'>",
+              includeMarkdown(str_c("md/infoBanner_", input$lang, ".md")),
+            "</div>"
           )
         )
       )
