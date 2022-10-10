@@ -72,7 +72,7 @@ ui <- function(request) {
         ),
         uiOutput("mapOptionsUI")
       ),
-      tabPanel(is = "about", title = "About", icon = icon("question-circle", class = "far"),
+      tabPanel(is = "about", title = "About", icon = icon("circle-question", class = "far"),
         uiOutput("aboutUI")
       ),
       inputs = selectInput("lang", NULL,

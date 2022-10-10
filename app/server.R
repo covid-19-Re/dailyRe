@@ -710,18 +710,18 @@ server <- function(input, output, session) {
           ui,
           div(class = "quickRegionSelect",
             actionLink("selectCHECanton", i18n()$t("Cantons"),
-              icon = icon("arrow-alt-circle-right", class = "fas")),
+              icon = icon("circle-right", class = "fas")),
             actionLink("selectCHEGrossregionen", i18n()$t("Greater regions"),
-              icon = icon("arrow-alt-circle-right", class = "fas")),
+              icon = icon("circle-right", class = "fas")),
             actionLink("selectCHESentinella", i18n()$t("Sentinella Regions"),
-              icon = icon("arrow-alt-circle-right", class = "fas"))
+              icon = icon("circle-right", class = "fas"))
           )
         )
       } else if (all(input$countrySelect == "ZAF")) {
         ui <- tagList(
           ui,
           actionLink("selectZAFprovinces", "Provinces",
-            icon = icon("arrow-alt-circle-right", class = "fas"))
+            icon = icon("circle-right", class = "fas"))
         )
       }
     }
