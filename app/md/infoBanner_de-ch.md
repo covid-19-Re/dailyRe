@@ -1,1 +1,0 @@
-**WICHTIG** Seit 29.3.2022 basieren die Schätzungen für die Schweiz ausschliesslich auf öffentlich verfügbaren Daten des BAG. Die rapportierten Werte können von früheren Schätzungen abweichen und weniger genau sein.

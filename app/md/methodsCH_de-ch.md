@@ -1,3 +1,4 @@
+<!-- LTeX: language=de-CH -->
 Eine Einschätzung der momentanen epidemiologischen Lage in der Schweiz basierend auf der Reproduktionszahl R<sub>e</sub> und weiteren Indikatoren finden sie [hier](https://sciencetaskforce.ch/news/). Grössere detaillierte Updates der epidemiologischen Lage werden von der Science Task Force in Form von [Policy Briefs](https://ncs-tf.ch/de/policy-briefs) veröffentlicht.
 
 <h4>Vorbehalte bei der Interpretation der Ergebnisse </h4>

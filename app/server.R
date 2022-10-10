@@ -944,15 +944,7 @@ server <- function(input, output, session) {
 
   output$infoBanner <- renderUI({
     if (reConfig$public) {
-      ui <- fluidRow(
-        column(12,
-          HTML(
-            "<div class='infoBox'>",
-              includeMarkdown(str_c("md/infoBanner_", input$lang, ".md")),
-            "</div>"
-          )
-        )
-      )
+      ui <- NULL
     } else {
       ui <- fluidRow(
         column(12,

@@ -1,3 +1,4 @@
+<!-- LTeX: language=fr-CH -->
 Une synthèse de la situation épidémique actuelle en Suisse basée sur le taux de reproduction R<sub>e</sub> et d’autres indicateurs est disponible [ici](https://sciencetaskforce.ch/fr/news-francais/). Des rapports plus complets sur la situation épidémique sont publiés par la Science Task Force sous la forme de [Policy Briefs](https://ncs-tf.ch/de/policy-briefs).
 
 <h4>Mises en garde</h4>

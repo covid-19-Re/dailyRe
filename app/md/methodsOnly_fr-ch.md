@@ -1,3 +1,4 @@
+<!-- LTeX: language=fr-CH -->
 <h4>Méthodes</h4>
 
 Le R<sub>e</sub>  rapporté pour un jour en particulier correspond à une moyenne sur les trois derniers jours. Nous communiquons la médiane des estimations ainsi que l’intervalle d’incertitude à 95%.
