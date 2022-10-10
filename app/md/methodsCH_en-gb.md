@@ -1,6 +1,6 @@
 <h4>Methods</h4>
 
-The reported R<sub>e</sub> for a given day is the mean R<sub>e</sub> over the last 3 days. We report the estimated median with the 95% uncertainty interval. The method to estimate R<sub>e</sub> is described [here](https://doi.org/10.7554/eLife.71345). 
+The reported R<sub>e</sub> for a given day is the mean R<sub>e</sub> over the last 3 days. We report the estimated median with the 95% uncertainty interval. The method to estimate R<sub>e</sub> is described [here](https://doi.org/10.7554/eLife.71345).
 We further provide a 7-day estimate. This estimate is obtained by assuming a constant R<sub>e</sub> over the last seven days. The results of such a piecewise constant procedure can be viewed visually using the option "Step-wise constant".
 
 The method to estimate R<sub>e</sub> is described [here](https://doi.org/10.7554/eLife.71345). Since June 2022, we first smooth the data with a LOESS step, and then estimate the infection dates using a [deconvolution](https://www.pnas.org/content/106/51/21825) step (discussed [here](https://smw.ch/article/doi/smw.2020.20307) and [here](https://journals.plos.org/ploscompbiol/article/comments?id=10.1371/journal.pcbi.1008409)). Then, we estimate R<sub>e</sub> using the [EpiEstim](https://cran.r-project.org/web/packages/EpiEstim/index.html) software from the estimated infection dates. Results using the method for data until April 2020 can be accessed [here](https://smw.ch/article/doi/smw.2020.20271).
