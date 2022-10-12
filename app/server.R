@@ -625,7 +625,7 @@ server <- function(input, output, session) {
         e_line(serie = value,
           lineStyle = list(type = "dashed"),
           symbol = "none", cursor = "default", bind = header)
-      yAxisLabel <- str_c(i18n()$t("Oxford Stringency Index"), yAxisLabel, sep = " /\n")
+      yAxisLabel <- str_c(i18n()$t("Stringency Index (Legacy)"), yAxisLabel, sep = " /\n")
     }
 
     if (length(input$mobilityType) > 0) {
