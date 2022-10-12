@@ -39,6 +39,7 @@ ui <- function(request) {
           ),
           column(2,
             uiOutput("dataTypeChoiceUI"),
+            uiOutput("dateRangeUI"),
             uiOutput("incidenceSmoothingUI"),
             uiOutput("moreIncidenceOptions")
           )

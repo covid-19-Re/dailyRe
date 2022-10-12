@@ -531,15 +531,10 @@ server <- function(input, output, session) {
         nameGap = 50,
         nameLocation = "middle") %>%
       e_x_axis(
-        min = plotMinX,
-        max = plotMaxX
+        min = input$dateRange[1],
+        max = input$dateRange[2]
       ) %>%
-      e_datazoom(x_index = 0) %>%
-      e_zoom(
-        dataZoomIndex = 0,
-        start = 0,
-        end = 100
-      ) %>%
+      # e_datazoom(x_index = 0) %>%
       e_toolbox(show = FALSE) %>%
       e_group("grp") %>%
       e_connect_group("grp")
@@ -576,26 +571,29 @@ server <- function(input, output, session) {
         nameTextStyle = list(fontSize = axisLabelSize, fontWeight = axisLabelWeight),
         nameGap = 50,
         nameLocation = "middle") %>%
-      e_line(serie = mean, symbol = "none", cursor = "default") %>%
+      e_line(serie = mean, symbol = "none", cursor = "default", xAxisIndex = 0) %>%
       e_band2(lower = low, upper = high,
         itemStyle = list(borderWidth = 0, opacity = 0.5),
-        tooltip = list(show = TRUE), cursor = "default") %>%
+        tooltip = list(show = TRUE),
+        cursor = "default",
+        xAxisIndex = 0) %>%
       e_mark_line(
         data = list(name = "Re", yAxis = 1),
         label = list(show = FALSE, formatter = "{b} = {c}"),
         symbol = c("none", "none"), cursor = "default",
-        emphasis = list(label = list(show = TRUE))) %>%
+        emphasis = list(label = list(show = TRUE)),
+        xAxisIndex = 0) %>%
       e_grid(right = rightMarginP) %>%
       e_x_axis(
-        min = plotMinX,
-        max = plotMaxX
+        min = input$dateRange[1],
+        max = input$dateRange[2]
       ) %>%
-      e_datazoom(x_index = 0, show = FALSE) %>%
-      e_zoom(
-        dataZoomIndex = 0,
-        start = 0,
-        end = 100
-      ) %>%
+      # e_datazoom(x_index = 0, show = FALSE) %>%
+      # e_zoom(
+      #   dataZoomIndex = 0,
+      #   start = 0,
+      #   end = 100
+      # ) %>%
       e_legend(show = FALSE) %>%
       e_toolbox(show = FALSE) %>%
       e_group("grp") %>%
@@ -613,7 +611,8 @@ server <- function(input, output, session) {
         e_charts(x = date) %>%
         e_line(serie = value,
           lineStyle = list(type = "solid"),
-          symbol = "none", cursor = "default", bind = header)
+          symbol = "none", cursor = "default", bind = header,
+          xAxisIndex = 0)
     }
 
     if (input$showStringency) {
@@ -624,7 +623,8 @@ server <- function(input, output, session) {
           x = date) %>%
         e_line(serie = value,
           lineStyle = list(type = "dashed"),
-          symbol = "none", cursor = "default", bind = header)
+          symbol = "none", cursor = "default", bind = header,
+          xAxisIndex = 0)
       yAxisLabel <- str_c(i18n()$t("Stringency Index (Legacy)"), yAxisLabel, sep = " /\n")
     }
 
@@ -636,7 +636,8 @@ server <- function(input, output, session) {
           x = date) %>%
         e_line(serie = value,
           lineStyle = list(type = "dotted"),
-          symbol = "none", cursor = "default", bind = header)
+          symbol = "none", cursor = "default", bind = header,
+          xAxisIndex = 0)
 
       yAxisLabel <- str_c(yAxisLabel, i18n()$t("% mobility change"), sep = " /\n")
     }
@@ -644,8 +645,9 @@ server <- function(input, output, session) {
     plot <- plot %>%
       e_grid(right = rightMarginP) %>%
       e_x_axis(
-        min = plotMinX,
-        max = plotMaxX
+        min = input$dateRange[1],
+        max = input$dateRange[2],
+        xAxisIndex = 0
       ) %>%
       e_y_axis(
         name = yAxisLabel,
@@ -653,7 +655,7 @@ server <- function(input, output, session) {
         nameGap = 50,
         nameLocation = "middle") %>%
       e_legend(show = TRUE) %>%
-      e_datazoom(x_index = 0, show = FALSE) %>%
+      # e_datazoom(x_index = 0, show = FALSE) %>%
       e_zoom(
         dataZoomIndex = 0,
         start = 0,
@@ -787,6 +789,26 @@ server <- function(input, output, session) {
     } else {
       return(NULL)
     }
+  })
+
+  output$dateRangeUI <- renderUI({
+
+    ui <- dateRangeInput(
+      inputId = "dateRange", label = i18n()$t("Select dates for plots"),
+      start = plotMinX,
+      end = plotMaxX,
+      min = plotMinX,
+      max = plotMaxX,
+      format = "yyyy-mm-dd",
+      startview = "month",
+      weekstart = 0,
+      language = "en",
+      separator = " to ",
+      width = NULL,
+      autoclose = TRUE
+    )
+    return(ui)
+
   })
 
   output$incidenceSmoothingUI <- renderUI({
