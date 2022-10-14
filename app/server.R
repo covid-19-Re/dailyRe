@@ -471,14 +471,22 @@ server <- function(input, output, session) {
 
     yAxisLabel <- i18n()$t("New observations")
 
+    incidenceDataValuesSelected <- incidenceData |>
+      filter(between(date, input$dateRange[1]-1, input$dateRange[2]+1)) |>
+      pull(value)
+
     if (input$incidenceLogAxis) {
       yAxisType <- "log"
-      ymin <- 10 ^ round(log10(min(incidenceData$value[incidenceData$value != 0])))
-      ymax <- max(incidenceData$value)
+      ymin <- 10 ^ round(log10(min(incidenceDataValuesSelected[incidenceDataValuesSelected != 0])))
+      ymax <- max(incidenceDataValuesSelected)
     } else {
       yAxisType <- "value" 
-      ymin <- NULL
-      ymax <- NULL
+      ymin <- 0
+      maxIncidence <- max(incidenceDataValuesSelected)
+      ymax <- plyr::round_any(
+        maxIncidence,
+        10^floor(log(maxIncidence, 10)-1),
+        ceiling)
     }
 
     if (input$incidenceNormalization) {
