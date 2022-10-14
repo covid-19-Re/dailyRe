@@ -53,6 +53,7 @@ allIncidenceData <- allData$caseData %>%
 
 plotMinX <- as_datetime("2020-02-01", tz = "UTC")
 plotMaxX <- as_datetime(max(allIncidenceData$date))
+plotXstart <- plotMaxX - months(6) 
 
 allEstimateData <- allData$estimates
 

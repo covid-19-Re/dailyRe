@@ -803,7 +803,7 @@ server <- function(input, output, session) {
 
     ui <- dateRangeInput(
       inputId = "dateRange", label = i18n()$t("Select dates for plots"),
-      start = plotMinX,
+      start = plotXstart,
       end = plotMaxX,
       min = plotMinX,
       max = plotMaxX,
