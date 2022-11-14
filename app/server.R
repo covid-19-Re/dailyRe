@@ -461,18 +461,20 @@ server <- function(input, output, session) {
       group_by(countryIso3, series, data_type) %>%
       dplyr::filter(date <= (max(date) - rightTruncation[[unique(countryIso3)]][[unique(data_type)]])) %>%
       arrange(date, countryIso3, region, data_type) %>%
-      group_by(series)
+      group_by(series) |>
+      filter(between(date, input$dateRange[1] - 1, input$dateRange[2] + 1))
 
     incidenceDataRest <- incidenceData %>%
       group_by(countryIso3, series, data_type) %>%
       dplyr::filter(date > (max(date) - rightTruncation[[unique(countryIso3)]][[unique(data_type)]])) %>%
       arrange(date, countryIso3, region, data_type) %>%
-      group_by(series)
+      group_by(series) |>
+      filter(between(date, input$dateRange[1] - 1, input$dateRange[2] + 1))
 
     yAxisLabel <- i18n()$t("New observations")
 
     incidenceDataValuesSelected <- incidenceData |>
-      filter(between(date, input$dateRange[1]-1, input$dateRange[2]+1)) |>
+      filter(between(date, input$dateRange[1] - 1, input$dateRange[2] + 1)) |>
       pull(value)
 
     if (input$incidenceLogAxis) {
@@ -480,13 +482,9 @@ server <- function(input, output, session) {
       ymin <- 10 ^ round(log10(min(incidenceDataValuesSelected[incidenceDataValuesSelected != 0])))
       ymax <- max(incidenceDataValuesSelected)
     } else {
-      yAxisType <- "value" 
-      ymin <- 0
-      maxIncidence <- max(incidenceDataValuesSelected)
-      ymax <- plyr::round_any(
-        maxIncidence,
-        10^floor(log(maxIncidence, 10)-1),
-        ceiling)
+      yAxisType <- "value"
+      ymin <- NULL
+      ymax <- NULL
     }
 
     if (input$incidenceNormalization) {
