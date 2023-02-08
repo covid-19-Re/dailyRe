@@ -972,7 +972,16 @@ server <- function(input, output, session) {
 
   output$infoBanner <- renderUI({
     if (reConfig$public) {
-      ui <- NULL
+      ui <- fluidRow(
+        column(12,
+          HTML(
+            "<div class='infoBox'>
+              <p><strong>IMPORTANT</strong>
+              Since 2023/01/01 daily incidence data for Switzerland is no longer published by the FOPH.
+            </div>"
+          )
+        )
+      )
     } else {
       ui <- fluidRow(
         column(12,
